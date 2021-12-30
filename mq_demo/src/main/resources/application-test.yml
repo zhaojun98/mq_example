@@ -1,0 +1,14 @@
+server:
+  port: 8088
+# DataSource Config
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirm-type: correlated    #消息确认方式,通过 correlated 来确认(将来的消息中才会带 correlation_id,只有通过 correlation_id 我们才能将发送的消息和返回值之间关联起来)
+    publisher-returns: true     #开启发送失败退回
+    #1.开启 confirm 确认机制
+
+
