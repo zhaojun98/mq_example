@@ -1,4 +1,5 @@
 一、SpringBoot+RabbitMQ 实现 RPC 调用  (源码请查看：mq_demo)
+
 说到 RPC（Remote Procedure Call Protocol 远程过程调用协议），小伙伴们脑海里蹦出的估计都是 RESTful API、Dubbo、WebService、Java RMI、CORBA 等。
 其实，RabbitMQ 也给我们提供了 RPC 功能，并且使用起来很简单。
 今天松哥通过一个简单的案例来和大家分享一下 Spring Boot+RabbitMQ 如何实现一个简单的 RPC 调用。
@@ -7,7 +8,8 @@
 这种方式不是不可以，就是有点麻烦！RabbitMQ 中提供了现成的方案可以直接使用，非常方便。接下来我们就一起来学习下。
 1. 架构
    先来看一个简单的架构图：
-   图片
+   图片![image](https://user-images.githubusercontent.com/67642821/147717986-34273efe-a906-46f0-b2b7-bcd2aeddf0da.png)
+
    这张图把问题说的很明白了：
    首先 Client 发送一条消息，和普通的消息相比，这条消息多了两个关键内容：一个是 correlation_id，这个表示这条消息的唯一 id，还有一个内容是 reply_to，这个表示消息回复队列的名字。
    Server 从消息发送队列获取消息并处理相应的业务逻辑，处理完成后，将处理结果发送到 reply_to 指定的回调队列中。
